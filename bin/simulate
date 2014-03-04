@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require 'faraday'
+require 'multi_json'
+
+require 'dotenv'
+Dotenv.load
+
+HOST = ENV.fetch('WEBHOOK_HOST')
+PATH = ENV.fetch('WEBHOOK_PATH')
+
+SUPPORTED_EVENTS = [
+  'trip:finished',
+  'ignition:on',
+  'ignition:off',
+  'parking:changed',
+  'region:changes',
+  'mil:on',
+  'mil:off',
+  'notification:speeding',
+  'notification:hard_brake',
+  'notification:hard_accel'
+]
+
+module Samples
+  class Request
+    def initialize(name)
+      @name = name.to_s
+    end
+
+    def contents
+      @contents ||= MultiJson.load(file_contents)
+    end
+
+    private
+    def file_contents
+      @file_contents ||= File.read(file_path)
+    end
+
+    def file_path
+      File.expand_path(file_name, __FILE__)
+    end
+
+    def file_name
+      "../samples/%s.json" % [name]
+    end
+
+    def name
+      @name.gsub(':', '_')
+    end
+  end
+end
+
+module Simulation
+  class Request < Thor
+    EventNotFoundError = Class.new(StandardError)
+
+    desc 'event', 'Simulate a Specific Event'
+    long_desc <<-LONG_DESC
+      Trigger one of the standard Automatic Webhook events:
+
+      #{SUPPORTED_EVENTS.join("\n")}
+      LONG_DESC
+    option :name, required: true, type: :string
+    def event
+      event_type = options[:name]
+      raise EventNotFoundError.new("Event %s not found. Use one of: %s" % [event_type, SUPPORTED_EVENTS.join(', ')]) unless SUPPORTED_EVENTS.include?(event_type)
+
+      request = Samples::Request.new(event_type)
+      event   = request.contents
+
+      connection = Faraday.new(HOST)
+      connection.post(PATH, MultiJson.dump(event))
+    end
+  end
+end
+
+Simulation::Request.start
