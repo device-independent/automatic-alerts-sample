@@ -105,6 +105,31 @@ All is good. You now have a tunnel to your local instance of `sinatra`. Now you 
     
 You will replace `key` with the address you are assigned from `ngrok`. Once they get this setup and in place you can use their web interface to _simulate webhook event_ and pick from an event to simulate. If all is working well, as soon as you hit **Simulate** you will see the request come through to your local application server.
 
+### Twilio
+In order to use the Twilio alerts, you will need to [setup a Twilio
+account](https://www.twilio.com/try-twilio). Once you are registered you
+will receive API Credentials with:
+
+* `AccountSID`
+* `AuthToken`
+
+You will also be given a number where the calls will be made __from__:
+[Manage
+Numbers](https://www.twilio.com/user/account/phone-numbers/incoming)o
+
+As a trial member you will need to **verify a number** in the [Manage
+Numbers](https://www.twilio.com/user/account/phone-numbers/incoming)
+screen. If you do not register the numbers, you will receive errors in
+the application when trying to send an SMS.
+
+Your credentials will be stored in the `.env` file:
+
+```
+TWILIO_ACCOUNT_SID='your-account-sid'
+TWILIO_AUTH_TOKEN='your-auth-token'
+TWILIO_FROM_NUMBER='your-twilio-number'
+```
+
 ## Handling the Response
 Now is where we will begin to fill out our `/hooks/automatic` route. In order to handle the response, we will utilize a few `Alert` objects and some wrappers to our API's. Here's what the route will look like:
 
