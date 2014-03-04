@@ -1,0 +1,23 @@
+{
+  "id": "1c048d25b875",
+  "user": {
+    "id": "6sQPMSEW71FQ3H"
+  },
+  "type": "parking:changed",
+  "created_at": 1383448450201,
+  "time_zone": "America/Los_Angeles",
+  "location": {
+    "lat": 37.757076,
+    "lon": -122.448120,
+    "accuracy_m": 10
+  },
+  "vehicle": {
+    "uri": "https://api.automatic.com/v1/vehicles/529e5772e4b00a2ddb562f1f",
+    "id": "529e5772e4b00a2ddb562f1f",
+    "year": 2001,
+    "make": "Acura",
+    "model": "MDX",
+    "color": "Purple",
+    "display_name": "My Speed Demon"
+  }
+}
