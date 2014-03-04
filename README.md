@@ -1,5 +1,7 @@
 # Automatic Link Notifications
 
+> NOTE: This is a proof-of-concept and was not written for production use cases. I am posting the code to provide some insight into how I initially tackled getting alerts setup with my Automatic Link. You have been warned :)
+
 ## Goal
 Utilize the Automatic API, specifically the [webhooks](https://www.automatic.com/developer/documentation/#automatic-event-webhook-api), and integrating with other services such as [Philips Hue](http://developers.meethue.com) and [Twilio](http://www.twilio.com/docs/api/rest).
 
