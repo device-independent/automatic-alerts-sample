@@ -113,7 +113,7 @@ You can [read the Huey
 documentation](https://github.com/Veraticus/huey).
 
 **Important: Be sure to read the Getting Started notes in order to
-_register_ Huey***
+_register_ Huey**
 
 ### Twilio
 In order to use the Twilio alerts, you will need to [setup a Twilio
