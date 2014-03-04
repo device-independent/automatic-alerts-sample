@@ -177,7 +177,9 @@ end
 
 Again, for simplicity, the code for this is stored in `library.rb`. Normally we would separate out the concerns and gemify certain aspects. This is intentionally a rough proof-of-concept.
 
-# TODO
+# Simulating Locally
+There is a `bin/simulate` script that allows you to pass it an event to
+your local `ngrok` instance to test end-to-end. [Read more about
+simulating
+locally.](https://github.com/nateklaiber/automatic-alerts-sample/tree/master/bin)
 
-* Create sample files and requests to simulate events locally, without
-requiring the Automatic interface.
