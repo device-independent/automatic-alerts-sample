@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+echo "Copying sample files..."
+cp -vn .env.sample .env
+
+echo "Retrieving gems..."
+bundle install
