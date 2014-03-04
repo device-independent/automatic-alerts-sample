@@ -21,7 +21,7 @@ post '/hooks/automatic' do
     event.add_alert(Alerts::Lights.new(event, group.bulbs))
   end
 
-  # Have the OSX System `say` commend speak the event
+  # Have the OSX System `say` command speak the event
   event.add_alert(Alerts::Screamer.new(event))
 
   # Send an SMS to specified numbers
