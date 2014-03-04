@@ -17,27 +17,16 @@ Utilize the Automatic API, specifically the [webhooks](https://www.automatic.com
 Here are the steps I took to integrate multiple _alert_ services with my Automatic Link.
 
 ### Application and Dependencies
-I started by creating a folder that will house the code dependencies and server.
+I started by creating a folder that will house the code dependencies and
+server. You can setup with:
 
-    mkdir -p ~/Sites/automatic-webhooks
-    cd ~/Sites/automatic-webhooks
-    echo "2.0.0" > .ruby-version
-    echo "automatic-webhooks" > .ruby-gemset
-    echo "source 'https://rubygems.org'" > Gemfile
-    cd ../
-    cd automatic-webhooks # CD out and in to pick up the Ruby Version and Gemset.
+```
+git clone git@github.com:nateklaiber/automatic-alerts-sample.git
+cd automatic-alerts-sample
+bin/boostrap
+```
 
-Once you have this base you can begin to add the necessary dependencies to the `Gemfile`. Here is what my `Gemfile` looks like:
-
-    source 'https://rubygems.org'
-    
-    gem 'sinatra'
-    gem 'huey'
-    gem 'twilio-ruby'
-    gem 'dotenv'
-    gem 'multi_json'
-
-Here's some more info on each:
+Here's some info on the dependencies:
 
 * [`sinatra`](https://rubygems.org/gems/sinatra) is the application webserver.
 * [`huey`](https://rubygems.org/gems/huey) is a base gem I use to handle connects with the Hue Bridge.
@@ -51,7 +40,6 @@ First you want to [download](https://ngrok.com/download) and install ngrok. You 
     ngrok 4567
 
 I use **4567** as it's the default port for the _Sinatra_ web server. You will get a response that looks like:
-
   
     ngrok
     
@@ -74,10 +62,8 @@ require 'multi_json'
 require File.expand_path('../library.rb', __FILE__)
 
 post '/hooks/automatic' do
-  content_type :json
-  
   body_content = request.body.read
-  json_content = JSON.parse(body_content)
+  json_content = MultiJson.load(body_content)
   
   puts json_content.inspect
   
@@ -163,3 +149,8 @@ end
 ```
 
 Again, for simplicity, the code for this is stored in `library.rb`. Normally we would separate out the concerns and gemify certain aspects. This is intentionally a rough proof-of-concept.
+
+# TODO
+
+* Create sample files and requests to simulate events locally, without
+requiring the Automatic interface.
