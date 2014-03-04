@@ -30,8 +30,7 @@ module Automatic
 
       def write!
         File.open('webhook-events.json', 'a+') do |file|
-          line = "%s\n" % [MultiJson.dump(@attributes)]
-          file.write(line)
+          file.puts(MultiJson.dump(@attributes))
         end
       end
 
