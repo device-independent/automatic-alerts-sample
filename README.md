@@ -69,21 +69,21 @@ I chose _Sinatra_ for it's quickness and simplicity. _Rails_ would also be a suf
 I instantiate a simple server to capture the _webhooks_ with the following `server.rb` file:
 
 ```ruby
-    require 'sinatra'
-    require 'multi_json'
-    require File.expand_path('../library.rb', __FILE__)
-    
-    post '/hooks/automatic' do
-      content_type :json
-      
-      body_content = request.body.read
-      json_content = JSON.parse(body_content)
-      
-      puts json_content.inspect
-      
-      status(200)
-      body(nil)
-    end
+require 'sinatra'
+require 'multi_json'
+require File.expand_path('../library.rb', __FILE__)
+
+post '/hooks/automatic' do
+  content_type :json
+  
+  body_content = request.body.read
+  json_content = JSON.parse(body_content)
+  
+  puts json_content.inspect
+  
+  status(200)
+  body(nil)
+end
 ```
 
 I'll explain some more of the underlying code in a minute. For now, I start my `sinatra` server with:
