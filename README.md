@@ -68,6 +68,7 @@ I chose _Sinatra_ for it's quickness and simplicity. _Rails_ would also be a suf
 
 I instantiate a simple server to capture the _webhooks_ with the following `server.rb` file:
 
+```ruby
     require 'sinatra'
     require 'multi_json'
     require File.expand_path('../library.rb', __FILE__)
@@ -83,6 +84,7 @@ I instantiate a simple server to capture the _webhooks_ with the following `serv
       status(200)
       body(nil)
     end
+```
 
 I'll explain some more of the underlying code in a minute. For now, I start my `sinatra` server with:
 
@@ -119,5 +121,45 @@ You will replace `key` with the address you are assigned from `ngrok`. Once they
 
 ## Handling the Response
 Now is where we will begin to fill out our `/hooks/automatic` route. In order to handle the response, we will utilize a few `Alert` objects and some wrappers to our API's. Here's what the route will look like:
+
+```ruby
+post '/hooks/automatic' do
+  # Read the incoming body
+  body_content = request.body.read
+  json_content = MultiJson.load(body_content)
+
+  # Choose lights to trigger for the alerts
+  light_groups = [Huey::Group.new('Basement')]
+
+  # Choose numbers to text for the alerts
+  sms_numbers = []
+
+  # Instantiate an instance of the Incoming Webhook Event
+  event = Automatic::Events::Instance.new(json_content)
+
+  # Setup custom alerts for the Hue Lights
+  light_groups.each do |group|
+    event.add_alert(Alerts::Lights.new(event, group.bulbs))
+  end
+
+  # Have the OSX System `say` commend speak the event
+  event.add_alert(Alerts::Screamer.new(event))
+
+  # Send an SMS to specified numbers
+  sms_numbers.each do |number|
+    event.add_alert(Alerts::SMS.new(event, number))
+  end
+
+  # Write the alert to a JSON cache file
+  event.write!
+
+  # Trigger the alerts
+  event.alert!
+
+  # Return a successful response
+  status(200)
+  body(nil)
+end
+```
 
 Again, for simplicity, the code for this is stored in `library.rb`. Normally we would separate out the concerns and gemify certain aspects. This is intentionally a rough proof-of-concept.
