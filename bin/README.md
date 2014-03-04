@@ -2,8 +2,8 @@
 This is a script that will help simulate an event to your `ngrok`
 tunnel. In order for this to work, you need to:
 
-* Have your _Sinatra_ server up and running
-* Have `ngrok` up and running
+* Have your _Sinatra_ server up and running: `bundle exec server.rb`
+* Have `ngrok` up and running: `ngrok 4567`
 
 Setup the following variables in the `.env` file:
 
