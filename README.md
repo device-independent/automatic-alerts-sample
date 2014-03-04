@@ -115,7 +115,7 @@ will receive API Credentials with:
 
 You will also be given a number where the calls will be made __from__:
 [Manage
-Numbers](https://www.twilio.com/user/account/phone-numbers/incoming)o
+Numbers](https://www.twilio.com/user/account/phone-numbers/incoming)
 
 As a trial member you will need to **verify a number** in the [Manage
 Numbers](https://www.twilio.com/user/account/phone-numbers/incoming)
