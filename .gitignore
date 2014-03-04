@@ -1,9 +1,5 @@
 # Ignore the cache
 /webhook-events.json
 
-# Ignore the RVM info
-/.ruby-version
-/.ruby-gemset
-
 # Ignore the .env
 /.env
