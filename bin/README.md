@@ -1,8 +1,13 @@
 # Simulating an Event
 This is a script that will help simulate an event to your `ngrok`
-tunnel. In order for this to work, you need to
+tunnel. In order for this to work, you need to:
 
-Setup the following variables in the `.env` file:
+Start `ngrok`:
+
+`ngrok 4567`
+
+Setup the following variables in the `.env` file. You will want to
+capture the `Forwarding` URL from the `ngrok` output:
 
 ```
 WEBHOOK_HOST="http://{key}.ngrok.com"
@@ -11,8 +16,11 @@ WEBHOOK_PATH="/hooks/automatic"
 
 And...
 
-* Have your _Sinatra_ server up and running: `bundle exec server.rb`
-* Have `ngrok` up and running: `ngrok 4567`
+Have your `sinatra` server up and running:
+
+```
+bundle exec server.rb
+```
 
 You can then issue commands to the script from the _root_ of the
 directory.
