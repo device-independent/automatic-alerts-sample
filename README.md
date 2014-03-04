@@ -107,6 +107,14 @@ All is good. You now have a tunnel to your local instance of `sinatra`. Now you 
     
 You will replace `key` with the address you are assigned from `ngrok`. Once they get this setup and in place you can use their web interface to _simulate webhook event_ and pick from an event to simulate. If all is working well, as soon as you hit **Simulate** you will see the request come through to your local application server.
 
+### Philips Hue
+I am currently using the `huey` gem to connect and play with the lights.
+You can [read the Huey
+documentation](https://github.com/Veraticus/huey).
+
+**Important: Be sure to read the Getting Started notes in order to
+_register_ Huey***
+
 ### Twilio
 In order to use the Twilio alerts, you will need to [setup a Twilio
 account](https://www.twilio.com/try-twilio). Once you are registered you
