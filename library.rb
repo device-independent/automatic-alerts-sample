@@ -162,7 +162,7 @@ module Alerts
           end
         end
         threads.each { |thread| thread.join }
-      when 'notification:speeding'
+      when 'notification:speeding' # NOTE: The goal here is to simulate a light bar with the flashing blue/red. I am currently looking into strobing options to make it more fun.
         total_lights = @lights.count
         half_lights  = (total_lights / 2)
 
